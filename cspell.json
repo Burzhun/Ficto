@@ -1,0 +1,29 @@
+{
+  "version": "0.1",
+  "language": "en,ru,javascript,typescript",
+  "import": ["@cspell/dict-ru_ru/cspell-ext.json"],
+  "words": [
+    "Organisation",
+    "bgcolor",
+    "Jexcel",
+    "Tabler",
+    "handsontable",
+    "toastify",
+    "Toastify",
+    "Formik",
+    "formik",
+    "surveyjs",
+    "Dropzone",
+    "dropzone",
+    "mixins",
+    "nocheck",
+    "Segoe",
+    "Roboto",
+    "Cantarell",
+    "Fira",
+    "Neue",
+    "ЦРГОП",
+    "ФГАОУ",
+    "Минпросвещения"
+  ]
+}

@@ -1,0 +1,25 @@
+.table_header {
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    line-height: 18px;
+}
+
+.rdg-cell {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.add-icon-wrapper {
+    position: absolute;
+    top: 20px;
+    right: 3%;
+    cursor: pointer;
+}
+
+.add-icon {
+    width: 25px !important;
+    height: 25px !important;
+}

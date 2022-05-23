@@ -1,0 +1,16 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "react-app",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "tsconfigRootDir": "."
+  },
+  "rules": {
+    "no-console": "warn"
+  }
+}

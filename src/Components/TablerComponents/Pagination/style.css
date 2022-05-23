@@ -1,0 +1,22 @@
+.pagination-container {
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select:none
+}
+
+.pagination-circle {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    cursor: pointer;
+
+}
+
+.pagination-circle.active {
+    background-color: rgb(25, 81, 219);
+    cursor: default;
+}

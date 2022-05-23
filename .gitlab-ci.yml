@@ -1,0 +1,99 @@
+image: node:14.17.5
+
+stages:
+  - test
+  - build
+  - build-docker
+  - build-docker-latest
+
+spell-check:
+  stage: test
+  image: node:12-alpine
+  script:
+    - npm i -g cspell-cli
+    - npm i -g @cspell/dict-ru_ru
+    - cspell-cli -u -c cspell.json "**"
+  tags:
+    - docker
+  when: manual
+
+build-stage-default:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  variables:
+    CI: "false"
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - build/
+  except:
+    - master
+  tags:
+    - docker
+
+build-stage-master:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  variables:
+    CI: "false"
+  artifacts:
+    expire_in: 1 mos
+    paths:
+      - build/
+  only:
+    - master
+  tags:
+    - docker
+
+build-docker-master:
+  stage: build-docker
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    # GIT_STRATEGY: none
+  dependencies:
+    - build-stage-master
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - master
+  tags:
+    - linux
+
+build-docker-default:
+  stage: build-docker
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    # GIT_STRATEGY: none
+  dependencies:
+    - build-stage-default
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  except:
+    - master
+  tags:
+    - linux
+
+build-docker-latest:
+  stage: build-docker-latest
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+    # GIT_STRATEGY: none
+  dependencies:
+    - build-stage-master
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - master
+  when: manual
+  tags:
+    - linux

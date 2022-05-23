@@ -1,0 +1,1 @@
+export { ResponsobilesData } from './ResponsobilesData';

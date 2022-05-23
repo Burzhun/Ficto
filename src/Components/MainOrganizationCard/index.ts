@@ -1,0 +1,1 @@
+export { MainOrganizationCard } from './MainOrganizationCard';
